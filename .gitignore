@@ -1,2 +1,23 @@
 # Exclude assets folder
 assets/
+
+# Node modules
+node_modules/
+
+# Netlify
+.netlify/
+
+# Environment variables (never commit credentials!)
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo

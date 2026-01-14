@@ -1,0 +1,30 @@
+# Netlify Configuration File
+# Defines build settings and serverless function configuration
+
+[build]
+  # Publish directory - where the static site files are located
+  publish = "."
+
+  # Functions directory - where serverless functions are stored
+  functions = "netlify/functions"
+
+  # No build command needed since this is a static site
+  command = ""
+
+# Redirect rules (optional)
+# [[redirects]]
+#   from = "/api/*"
+#   to = "/.netlify/functions/:splat"
+#   status = 200
+
+# Headers for security (optional but recommended)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Environment variables are set in Netlify dashboard, not here
+# This file is committed to git, so no secrets should be stored here

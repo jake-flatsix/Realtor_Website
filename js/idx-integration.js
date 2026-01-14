@@ -1,32 +1,29 @@
 /**
  * Jeffrey Seligson Realtor Website
- * BAREIS MLS / IDX Integration Placeholder
+ * BAREIS MLS / IDX Integration via Netlify Serverless Functions
  *
- * This file is prepared for future integration with BAREIS MLS
- * listing data via an approved IDX vendor or direct API access.
+ * This file connects to BAREIS MLS through a secure Netlify serverless function
+ * Credentials are stored securely in Netlify environment variables
  *
- * Integration Options:
- * 1. IDX Broker (https://idxbroker.com/mls/bay-area-real-estate-info-services-bareis)
- * 2. Direct BAREIS API (requires approval)
- * 3. RETS/Web API feed from approved vendor
- *
- * Requirements before activation:
- * - BAREIS IDX access approval
- * - API credentials from approved vendor
- * - Compliance review completed
+ * Setup Instructions:
+ * 1. Set environment variables in Netlify dashboard:
+ *    - BAREIS_USERNAME
+ *    - BAREIS_PASSWORD
+ *    - BAREIS_API_ENDPOINT
+ * 2. Set IDX_CONFIG.enabled = true
+ * 3. Update agentId if needed to filter listings
  *
  * Contact BAREIS: 707-575-8000 or visit https://bareis.com/my-bareis/idx-and-website.html
  */
 
 // ==========================================
-// IDX Configuration (to be filled in)
+// IDX Configuration
 // ==========================================
 const IDX_CONFIG = {
-    enabled: false,  // Set to true when IDX is configured
-    provider: '',    // e.g., 'IDX Broker', 'SimplyRETS', etc.
-    apiKey: '',      // Your API key
-    agentId: '',     // Your agent/realtor ID
-    endpoint: ''     // API endpoint URL
+    enabled: false,  // Set to true when Netlify environment variables are configured
+    agentId: '',     // Jeffrey's agent ID (if needed for filtering)
+    // Credentials are stored in Netlify environment variables, not here!
+    functionEndpoint: '/.netlify/functions/get-listings'
 };
 
 // ==========================================
@@ -49,36 +46,45 @@ function initializeIDX() {
 }
 
 // ==========================================
-// Fetch Listings from MLS
+// Fetch Listings from MLS via Netlify Function
 // ==========================================
 async function fetchListings() {
     /**
-     * This function will fetch listing data from BAREIS MLS
-     * via your chosen IDX provider's API
-     *
-     * Example implementation structure:
+     * Calls the Netlify serverless function which securely
+     * connects to BAREIS API with credentials from environment variables
      */
 
     try {
-        // Example API call structure (update with actual endpoint)
-        // const response = await fetch(`${IDX_CONFIG.endpoint}/listings`, {
-        //     headers: {
-        //         'Authorization': `Bearer ${IDX_CONFIG.apiKey}`,
-        //         'Content-Type': 'application/json'
-        //     }
-        // });
+        console.log('Fetching listings from BAREIS MLS...');
 
-        // const data = await response.json();
-        // const listings = data.listings || [];
+        // Fetch active listings
+        const activeResponse = await fetch(`${IDX_CONFIG.functionEndpoint}?status=Active&limit=50`);
 
-        // Process and display listings
-        // displayCurrentListings(listings.filter(l => l.status === 'Active'));
-        // displayPastSales(listings.filter(l => l.status === 'Sold'));
+        if (!activeResponse.ok) {
+            throw new Error(`HTTP error! status: ${activeResponse.status}`);
+        }
 
-        console.log('Listings fetched successfully');
+        const activeData = await activeResponse.json();
+
+        if (activeData.success && activeData.listings) {
+            displayCurrentListings(activeData.listings);
+            console.log(`✅ Loaded ${activeData.count} active listings`);
+        }
+
+        // Fetch sold listings for past sales section
+        const soldResponse = await fetch(`${IDX_CONFIG.functionEndpoint}?status=Sold&limit=20`);
+
+        if (soldResponse.ok) {
+            const soldData = await soldResponse.json();
+            if (soldData.success && soldData.listings) {
+                displayPastSales(soldData.listings);
+                console.log(`✅ Loaded ${soldData.count} sold listings`);
+            }
+        }
+
     } catch (error) {
         console.error('Error fetching listings:', error);
-        displayError('Unable to load listings. Please try again later.');
+        displayError('Unable to load listings from BAREIS MLS. Please try again later.');
     }
 }
 
