@@ -98,6 +98,21 @@ ul {
     align-items: center;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-link {
+    display: inline-block;
+}
+
+.logo-text {
+    height: 50px;
+    width: auto;
+}
+
+/* Legacy support for single logo img */
 .logo img {
     height: 50px;
     width: auto;
@@ -286,7 +301,7 @@ ul {
 }
 
 .credentials {
-    margin: 2rem 0;
+    margin: 3rem 0 2rem 0;
     padding: 1.5rem;
     background-color: var(--cream);
     border-radius: 8px;
@@ -447,7 +462,9 @@ ul {
 }
 
 .review-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     padding: 0.8rem 2rem;
     background-color: var(--forest-green);
     color: var(--light-text);
@@ -458,6 +475,11 @@ ul {
 
 .review-link:hover {
     background-color: var(--dark-olive);
+}
+
+.review-icon {
+    height: 20px;
+    width: auto;
 }
 
 /* ==========================================
@@ -732,6 +754,15 @@ ul {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* ==========================================
+   Responsive Design - Mobile (max 767px)
+   ========================================== */
+@media (max-width: 767px) {
+    .logo-text {
+        height: 40px;
     }
 }
 
