@@ -800,7 +800,7 @@ ul {
     }
 
     .expertise-badges {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 
     .reviews-grid {
@@ -836,6 +836,10 @@ ul {
 
     .section-title {
         font-size: 3rem;
+    }
+
+    .expertise-badges {
+        grid-template-columns: repeat(5, 1fr);
     }
 
     .reviews-grid {
