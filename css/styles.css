@@ -1,27 +1,27 @@
 /* ==========================================
    Jeffrey Seligson Realtor Website Styles
-   Earth Tone Theme - Mobile First Responsive
+   Modern Professional Theme - Mobile First Responsive
    ========================================== */
 
 /* ==========================================
-   CSS Variables - Earth Tone Color Palette
+   CSS Variables - Modern Blue & Gray Palette
    ========================================== */
 :root {
     /* Primary Colors */
-    --forest-green: #2d5016;
-    --sage-green: #9caf88;
-    --warm-brown: #8b6f47;
+    --forest-green: #1e3a5f;      /* Navy blue - primary brand color */
+    --sage-green: #3b82f6;        /* Bright blue - accents & CTAs */
+    --warm-brown: #475569;        /* Slate gray - secondary elements */
 
     /* Accent Colors */
-    --dark-olive: #4a5d23;
-    --light-sage: #c8d5b9;
-    --cream: #f5f1e8;
+    --dark-olive: #1e293b;        /* Charcoal - dark backgrounds */
+    --light-sage: #e0f2fe;        /* Light blue - subtle backgrounds */
+    --cream: #f8fafc;             /* Off-white - main backgrounds */
 
     /* Neutrals */
-    --dark-text: #2c2c2c;
-    --light-text: #ffffff;
-    --gray-text: #666666;
-    --border-color: #d4d4d4;
+    --dark-text: #1e293b;         /* Charcoal - headings & primary text */
+    --light-text: #ffffff;        /* White - text on dark backgrounds */
+    --gray-text: #64748b;         /* Slate - body text & muted content */
+    --border-color: #e2e8f0;      /* Light gray - borders & dividers */
 
     /* Spacing */
     --section-padding: 4rem 2rem;
