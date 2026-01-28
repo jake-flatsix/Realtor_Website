@@ -183,54 +183,64 @@
             <!-- Current Listings -->
             <div class="listings-subsection">
                 <h3 class="subsection-title">Current Listings</h3>
-                <div class="listings-grid" id="current-listings">
-                    <!-- IDX Integration Point: Dynamic listings will be injected here -->
-                    <div class="placeholder-card">
-                        <div class="placeholder-content">
-                            <h4>Listings Coming Soon</h4>
-                            <p>I'm currently working with several exciting properties in Sonoma County. Contact me directly for information about current listings and upcoming opportunities.</p>
-                            <a href="#contact" class="placeholder-cta">Contact Me</a>
-                        </div>
-                    </div>
+                <p class="subsection-description">View my active listings directly from BAREIS MLS</p>
+
+                <!-- BAREIS IDX Embedded Listings -->
+                <div class="idx-embed-container">
+                    <iframe
+                        src="https://rebareis.rapmls.com/scripts/mgrqispi.dll?APPNAME=reb&PRGNAME=MLSLogin&MLSUser=JS-1141&amp;MLSPassword=0HX-J&amp;ARGUMENT=S-3cPh7DzjTKhNOwW3iTJ5rZk0-3d"
+                        width="100%"
+                        height="800"
+                        frameborder="0"
+                        title="Jeffrey Seligson BAREIS MLS Listings"
+                        style="border: 1px solid var(--border-color); border-radius: 8px;">
+                    </iframe>
+                    <p class="idx-notice">Listings provided by BAREIS MLS. Updated in real-time.</p>
                 </div>
             </div>
 
             <!-- Past Sales Showcase -->
             <div class="listings-subsection">
-                <h3 class="subsection-title">Past Sales</h3>
-                <p class="subsection-description">A selection of properties I've successfully helped clients buy and sell in Sonoma County.</p>
+                <h3 class="subsection-title">Recent Sales</h3>
+                <p class="subsection-description">Properties I've successfully helped clients buy and sell in Sonoma County.</p>
                 <div class="listings-grid" id="past-sales">
-                    <!-- Sample property cards structure (can be populated with actual data) -->
-                    <div class="listing-card" data-listing-type="sold">
+                    <!-- Actual Recent Sales -->
+                    <div class="listing-card" data-listing-type="sold" data-mls-id="325035318">
                         <div class="listing-badge sold-badge">SOLD</div>
                         <div class="listing-image">
                             <div class="listing-placeholder">Property Image</div>
                         </div>
                         <div class="listing-details">
-                            <h4 class="listing-address">Sebastopol Area</h4>
-                            <p class="listing-features">Rural Property • Well & Septic</p>
+                            <h4 class="listing-address">735 Robinson Rd, Sebastopol</h4>
+                            <p class="listing-price">$545,000</p>
+                            <p class="listing-features">3 bed • 1 bath • 1,164 sqft</p>
+                            <p class="listing-date">Sold: June 2025</p>
                         </div>
                     </div>
 
-                    <div class="listing-card" data-listing-type="sold">
+                    <div class="listing-card" data-listing-type="sold" data-mls-id="325018375">
                         <div class="listing-badge sold-badge">SOLD</div>
                         <div class="listing-image">
                             <div class="listing-placeholder">Property Image</div>
                         </div>
                         <div class="listing-details">
-                            <h4 class="listing-address">West County Home</h4>
-                            <p class="listing-features">Green Construction • Energy Efficient</p>
+                            <h4 class="listing-address">1136 Wild Rose Dr, Santa Rosa</h4>
+                            <p class="listing-price">$574,000</p>
+                            <p class="listing-features">3 bed • 2 bath • 1,266 sqft</p>
+                            <p class="listing-date">Sold: April 2025</p>
                         </div>
                     </div>
 
-                    <div class="listing-card" data-listing-type="sold">
+                    <div class="listing-card" data-listing-type="sold" data-mls-id="81971755">
                         <div class="listing-badge sold-badge">SOLD</div>
                         <div class="listing-image">
                             <div class="listing-placeholder">Property Image</div>
                         </div>
                         <div class="listing-details">
-                            <h4 class="listing-address">Sonoma County Estate</h4>
-                            <p class="listing-features">Acreage • Private Well</p>
+                            <h4 class="listing-address">1111 Woodrow St, Redwood City</h4>
+                            <p class="listing-price">$1,175,000</p>
+                            <p class="listing-features">3 bed • 2 bath • 1,420 sqft</p>
+                            <p class="listing-date">Sold: August 2024</p>
                         </div>
                     </div>
                 </div>
