@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ==========================================
-    // Contact Form Submission with Web3Forms
+    // Contact Form Submission (Secure via Netlify Function)
     // ==========================================
     const contactForm = document.getElementById('contact-form');
     const formMessages = document.getElementById('form-messages');
@@ -189,11 +189,20 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get form data
             const formData = new FormData(contactForm);
 
+            // Convert FormData to JSON object
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+
             try {
-                // Submit to Web3Forms
-                const response = await fetch('https://api.web3forms.com/submit', {
+                // Submit to our secure Netlify function
+                const response = await fetch('/.netlify/functions/contact-form', {
                     method: 'POST',
-                    body: formData
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formObject)
                 });
 
                 const data = await response.json();
@@ -221,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }, 5000);
 
                 } else {
-                    // Error from Web3Forms
+                    // Error from function
                     throw new Error(data.message || 'Form submission failed');
                 }
 

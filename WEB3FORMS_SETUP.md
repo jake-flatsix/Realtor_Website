@@ -1,6 +1,6 @@
-# Web3Forms Contact Form Setup
+# Web3Forms Contact Form Setup (Secure Method)
 
-Your contact form is now ready to use! Just follow these simple steps to activate it.
+Your contact form uses a **secure Netlify serverless function** to keep your Web3Forms access key private. The key is stored in Netlify environment variables and never exposed in your public HTML.
 
 ## Step 1: Get Your Access Key
 
@@ -10,25 +10,33 @@ Your contact form is now ready to use! Just follow these simple steps to activat
 4. **Click "Create Access Key"**
 5. **Copy your Access Key** (looks like: `a1b2c3d4-e5f6-7890-abcd-ef1234567890`)
 
-## Step 2: Add Access Key to Website
+## Step 2: Add Access Key to Netlify (Securely)
 
-1. **Open file:** `index.html`
-2. **Find line ~244** (in the contact form section):
-   ```html
-   <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
-   ```
-3. **Replace** `YOUR_WEB3FORMS_ACCESS_KEY_HERE` with your actual access key
-4. **Save the file**
+1. **Go to Netlify Dashboard:** https://app.netlify.com
+2. **Select your site:** "Realtor_Website" (imaginative-faun-5004e0)
+3. **Navigate to:** Site configuration → Environment variables
+4. **Click "Add a variable"**
+5. **Add this variable:**
+   - **Key:** `WEB3FORMS_ACCESS_KEY`
+   - **Value:** [Paste your access key from Step 1]
+   - **Scopes:** All (default)
+6. **Click "Create variable"**
 
-## Step 3: Deploy
+## Step 3: Trigger a Redeploy
 
+The environment variable won't be active until the next deployment. You have two options:
+
+**Option A: Trigger redeploy via dashboard (easiest)**
+1. In Netlify, go to: **Deploys** tab
+2. Click **"Trigger deploy"** → **"Deploy site"**
+
+**Option B: Push a commit**
 ```bash
-git add index.html WEB3FORMS_SETUP.md
-git commit -m "Add Web3Forms access key"
+git commit --allow-empty -m "Trigger redeploy for environment variables"
 git push origin main
 ```
 
-Netlify will automatically deploy in ~30 seconds.
+Netlify will redeploy in ~30 seconds.
 
 ## Step 4: Test
 
@@ -63,44 +71,65 @@ Web3Forms free tier includes:
 - **No** credit card required
 - **Spam filtering** included
 
+## Security Features
+
+✅ **Access Key Hidden:** Never exposed in public HTML or browser
+✅ **Netlify Environment Variables:** Key stored securely on server-side
+✅ **Honeypot Protection:** Catches automated spam bots
+✅ **Required Fields:** Validates name, email, and message
+✅ **Rate Limiting:** Web3Forms prevents abuse automatically
+
 ## Customization (Optional)
 
 ### Change Email Subject
-In `index.html`, find:
-```html
-<input type="hidden" name="subject" value="New Contact Form Submission from Realtor Website">
+Edit `netlify/functions/contact-form.js`, find line ~60:
+```javascript
+subject: 'New Contact Form Submission from Realtor Website',
 ```
-Change the value to whatever you want.
+Change to whatever you want.
 
 ### Add CC/BCC
-Add these lines after the access_key input:
-```html
-<input type="hidden" name="cc" value="another@email.com">
-<input type="hidden" name="bcc" value="backup@email.com">
+In `netlify/functions/contact-form.js`, add to the `web3formsData` object:
+```javascript
+cc: 'another@email.com',
+bcc: 'backup@email.com',
 ```
 
 ### Custom "From" Name
-Add this line:
-```html
-<input type="hidden" name="from_name" value="Jeffrey Seligson Website">
-```
+Already set to "Jeffrey Seligson Website" in the serverless function.
 
 ## Troubleshooting
 
 ### Form submissions not arriving?
-1. Check spam/junk folder
-2. Verify access key is correct in index.html
-3. Check Web3Forms dashboard for delivery status
+1. **Check spam/junk folder**
+2. **Verify environment variable is set:**
+   - Netlify Dashboard → Site configuration → Environment variables
+   - Look for `WEB3FORMS_ACCESS_KEY`
+3. **Check if redeploy happened after adding variable:**
+   - Netlify Dashboard → Deploys tab
+   - Make sure there's a deployment after you added the variable
+4. **Check Netlify function logs:**
+   - Netlify Dashboard → Functions tab → contact-form
+   - Look for any error messages
+5. **Verify Web3Forms dashboard** for delivery status
 
 ### "Error sending message" appears?
-1. Check browser console for errors (F12)
-2. Verify you have internet connection
-3. Try with a different email address
+1. **Check browser console** for errors (F12 → Console tab)
+2. **Check Netlify function logs** (Dashboard → Functions → contact-form)
+3. **Verify environment variable** is set correctly
+4. **Try test submission** with your own email
+
+### "Contact form not configured" error?
+This means the `WEB3FORMS_ACCESS_KEY` environment variable is missing or misspelled:
+1. Go to Netlify Dashboard → Environment variables
+2. Make sure variable name is exactly: `WEB3FORMS_ACCESS_KEY`
+3. Trigger a redeploy after adding it
 
 ### Want to change where emails go?
 1. Log into Web3Forms dashboard
 2. Update your email address there
 3. Verify the new email address
+4. No code changes needed!
 
 ## Support
 

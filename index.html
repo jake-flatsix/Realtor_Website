@@ -268,20 +268,11 @@
                     </div>
                 </div>
 
-                <!-- Contact Form with Web3Forms -->
+                <!-- Contact Form (Secure via Netlify Function) -->
                 <div class="contact-form-container">
-                    <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
-                        <!-- Web3Forms Access Key - REPLACE WITH YOUR KEY FROM https://web3forms.com -->
-                        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
-
-                        <!-- Redirect to thank you page after submission (optional) -->
-                        <input type="hidden" name="redirect" value="https://imaginative-faun-5004e0.netlify.app/#contact">
-
-                        <!-- Subject line for the email -->
-                        <input type="hidden" name="subject" value="New Contact Form Submission from Realtor Website">
-
+                    <form class="contact-form" id="contact-form">
                         <!-- Honeypot spam protection -->
-                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1">
 
                         <div class="form-group">
                             <label for="name">Name *</label>
