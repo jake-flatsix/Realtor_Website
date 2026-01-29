@@ -164,21 +164,82 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ==========================================
-    // Form Validation (for future use)
+    // Contact Form Submission with Web3Forms
     // ==========================================
     const contactForm = document.getElementById('contact-form');
+    const formMessages = document.getElementById('form-messages');
+    const submitButton = contactForm ? contactForm.querySelector('.submit-button') : null;
 
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            // Form validation will be added here when email service is integrated
-            console.log('Form submission intercepted - email service not yet configured');
+            // Disable submit button and show loading state
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Sending...';
+            }
 
-            // Placeholder for future form submission logic:
-            // 1. Validate form fields
-            // 2. Send to email service (Formspree, EmailJS, etc.)
-            // 3. Show success/error message
+            // Clear previous messages
+            if (formMessages) {
+                formMessages.className = 'form-messages';
+                formMessages.textContent = '';
+            }
+
+            // Get form data
+            const formData = new FormData(contactForm);
+
+            try {
+                // Submit to Web3Forms
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Success
+                    if (formMessages) {
+                        formMessages.className = 'form-messages success';
+                        formMessages.textContent = 'Thank you for your message! I will get back to you soon.';
+                    }
+
+                    // Reset form
+                    contactForm.reset();
+
+                    // Reset button after delay
+                    setTimeout(() => {
+                        if (submitButton) {
+                            submitButton.disabled = false;
+                            submitButton.textContent = 'Send Message';
+                        }
+                        if (formMessages) {
+                            formMessages.className = 'form-messages';
+                            formMessages.textContent = '';
+                        }
+                    }, 5000);
+
+                } else {
+                    // Error from Web3Forms
+                    throw new Error(data.message || 'Form submission failed');
+                }
+
+            } catch (error) {
+                // Network or other error
+                console.error('Form submission error:', error);
+
+                if (formMessages) {
+                    formMessages.className = 'form-messages error';
+                    formMessages.textContent = 'Sorry, there was an error sending your message. Please try again or email me directly.';
+                }
+
+                // Re-enable button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Send Message';
+                }
+            }
         });
     }
 

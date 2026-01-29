@@ -1,5 +1,6 @@
-# Exclude assets folder
+# Exclude assets folders
 assets/
+assets_OLD/
 
 # Node modules
 node_modules/
