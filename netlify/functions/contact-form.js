@@ -63,6 +63,10 @@ exports.handler = async (event, context) => {
         };
     }
 
+    // Log that we have the key (without exposing it)
+    console.log('Access key found, length:', accessKey.length);
+    console.log('Access key format check:', accessKey.includes('-') ? 'UUID format' : 'other format');
+
     // Prepare the data for Web3Forms
     const web3formsData = {
         access_key: accessKey,
@@ -73,6 +77,9 @@ exports.handler = async (event, context) => {
         subject: 'New Contact Form Submission from Realtor Website',
         from_name: 'Jeffrey Seligson Website'
     };
+
+    // Log payload structure (without sensitive data)
+    console.log('Sending to Web3Forms with fields:', Object.keys(web3formsData));
 
     // Basic spam protection - check for honeypot
     if (formData.botcheck) {
@@ -98,7 +105,19 @@ exports.handler = async (event, context) => {
             body: JSON.stringify(web3formsData)
         });
 
+        // Log response for debugging
+        console.log('Web3Forms response status:', response.status);
+
+        // Check if response is JSON before parsing
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            const text = await response.text();
+            console.error('Web3Forms returned non-JSON response:', text.substring(0, 200));
+            throw new Error('Web3Forms API returned invalid response');
+        }
+
         const result = await response.json();
+        console.log('Web3Forms result:', result);
 
         if (result.success) {
             return {
