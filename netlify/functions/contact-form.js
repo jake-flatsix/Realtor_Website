@@ -94,15 +94,23 @@ exports.handler = async (event, context) => {
         };
     }
 
-    // Submit to Web3Forms
+    // Submit to Web3Forms using FormData (works better with Cloudflare)
     try {
+        // Convert to FormData format
+        const formBody = Object.keys(web3formsData)
+            .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(web3formsData[key]))
+            .join('&');
+
         const response = await fetch('https://api.web3forms.com/submit', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json',
+                'User-Agent': 'Mozilla/5.0 (compatible; Netlify-Function/1.0)',
+                'Origin': 'https://imaginative-faun-5004e0.netlify.app',
+                'Referer': 'https://imaginative-faun-5004e0.netlify.app/'
             },
-            body: JSON.stringify(web3formsData)
+            body: formBody
         });
 
         // Log response for debugging
