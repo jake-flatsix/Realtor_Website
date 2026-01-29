@@ -195,6 +195,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 formObject[key] = value;
             });
 
+            // Handle checkboxes explicitly (unchecked boxes don't appear in FormData)
+            const checkboxes = contactForm.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                if (checkbox.name && checkbox.name !== 'botcheck') {
+                    formObject[checkbox.name] = checkbox.checked ? 'yes' : 'no';
+                }
+            });
+
             try {
                 // Submit to our secure Netlify function
                 const response = await fetch('/.netlify/functions/contact-form', {

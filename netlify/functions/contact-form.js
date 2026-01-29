@@ -67,19 +67,33 @@ exports.handler = async (event, context) => {
     console.log('Access key found, length:', accessKey.length);
     console.log('Access key format check:', accessKey.includes('-') ? 'UUID format' : 'other format');
 
+    // Collect interests from checkboxes
+    const interests = [];
+    if (formData.interest_buying === 'yes') interests.push('Buying in Sonoma County');
+    if (formData.interest_selling === 'yes') interests.push('Selling property');
+    if (formData.interest_green === 'yes') interests.push('Green building / Sustainable properties');
+    if (formData.interest_rural === 'yes') interests.push('Rural properties with well/septic');
+
+    // Build enhanced message with interests
+    let enhancedMessage = formData.message;
+    if (interests.length > 0) {
+        enhancedMessage += '\n\n--- Interests ---\n' + interests.map(i => '• ' + i).join('\n');
+    }
+
     // Prepare the data for Web3Forms
     const web3formsData = {
         access_key: accessKey,
         name: formData.name,
         email: formData.email,
-        phone: formData.phone || '',
-        message: formData.message,
+        phone: formData.phone || 'Not provided',
+        message: enhancedMessage,
         subject: 'New Contact Form Submission from Realtor Website',
         from_name: 'Jeffrey Seligson Website'
     };
 
     // Log payload structure (without sensitive data)
     console.log('Sending to Web3Forms with fields:', Object.keys(web3formsData));
+    console.log('Interests selected:', interests.length > 0 ? interests : 'None');
 
     // Basic spam protection - check for honeypot
     if (formData.botcheck) {
