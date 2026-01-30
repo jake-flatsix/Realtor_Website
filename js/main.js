@@ -334,7 +334,6 @@ style.textContent = `
 
         .nav-menu.mobile-menu-open .nav-link {
             padding: 1rem 0;
-            border-bottom: 1px solid #d4d4d4;
         }
 
         .mobile-menu-toggle.active .hamburger {
@@ -352,8 +351,8 @@ style.textContent = `
         }
 
         .nav-link.active {
-            color: #2d5016;
-            border-bottom-color: #9caf88;
+            color: #1e3a5f;
+            font-weight: 600;
         }
     }
 `;
