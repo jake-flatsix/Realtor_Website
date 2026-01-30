@@ -334,6 +334,12 @@ style.textContent = `
 
         .nav-menu.mobile-menu-open .nav-link {
             padding: 1rem 0;
+            border-bottom: none !important;
+        }
+
+        .nav-menu.mobile-menu-open .nav-link:hover,
+        .nav-menu.mobile-menu-open .nav-link:focus {
+            border-bottom: none !important;
         }
 
         .mobile-menu-toggle.active .hamburger {
