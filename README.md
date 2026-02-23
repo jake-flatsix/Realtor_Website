@@ -2,7 +2,7 @@
 
 A modern, responsive website for Jeffrey Seligson, a Sonoma County realtor specializing in green construction, rural properties, and well/septic systems.
 
-**Live Site:** https://imaginative-faun-5004e0.netlify.app
+**Live Site:** https://jeffreyseligsonrealtor.com
 
 ---
 
@@ -272,7 +272,7 @@ All navigation, images, and forms work seamlessly on any device.
 - **GitHub Docs:** https://docs.github.com
 
 ### Service Dashboards
-- **Live Website:** https://imaginative-faun-5004e0.netlify.app
+- **Live Website:** https://jeffreyseligsonrealtor.com
 - **Netlify Dashboard:** https://app.netlify.com
 - **Web3Forms Dashboard:** https://web3forms.com
 - **GitHub Repository:** https://github.com/jake-flatsix/Realtor_Website

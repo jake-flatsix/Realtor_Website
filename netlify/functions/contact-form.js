@@ -121,8 +121,8 @@ exports.handler = async (event, context) => {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Accept': 'application/json',
                 'User-Agent': 'Mozilla/5.0 (compatible; Netlify-Function/1.0)',
-                'Origin': 'https://imaginative-faun-5004e0.netlify.app',
-                'Referer': 'https://imaginative-faun-5004e0.netlify.app/'
+                'Origin': 'https://jeffreyseligsonrealtor.com',
+                'Referer': 'https://jeffreyseligsonrealtor.com/'
             },
             body: formBody
         });
